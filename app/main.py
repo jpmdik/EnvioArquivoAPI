@@ -3,7 +3,7 @@ from flask import request, Flask
 from werkzeug.utils import secure_filename
 import json
 
-UPLOAD_FOLDER = 'public'
+UPLOAD_FOLDER = os.path.join('app', 'public')
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 app = Flask(__name__, static_folder='public')
