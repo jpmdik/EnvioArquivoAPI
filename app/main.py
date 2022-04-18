@@ -33,11 +33,12 @@ def upload_file():
     if 'file' not in request.files:
       return response({"success": False, "message": "Envie um arquivo na chave file"}, 400)
     file = request.files['file']
-    print(file.filename)
     if file.filename == '':
       return response({"success": False, "message": "Envie um arquivo."}, 400)
     if file and allowed_file(file.filename):
       filename = secure_filename(file.filename)
+      if not os.path.exists(app.config['UPLOAD_FOLDER']):
+        os.makedirs(app.config['UPLOAD_FOLDER'])
       file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
       return response({"success": True}, 201)
     return response({"success": False, "message": "Arquivo não encontrado ou não suportado."}, 400)
